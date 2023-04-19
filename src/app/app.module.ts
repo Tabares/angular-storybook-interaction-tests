@@ -8,6 +8,7 @@ import { NoticeComponent } from './notice/notice.component';
 import { FormComponent } from './form/form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,12 @@ import { HeaderComponent } from './header/header.component';
     FormComponent,
     HeaderComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    FooterComponent,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

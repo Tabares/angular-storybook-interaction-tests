@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormArray, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
@@ -7,6 +7,7 @@ import { FormArray, FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./form.component.scss'],
 })
 export class FormComponent {
+  @Input() showLog = false;
   public profileForm = this.fb.group({
     firstName: ['', Validators.required],
     lastName: [''],

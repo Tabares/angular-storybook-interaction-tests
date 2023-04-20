@@ -1,11 +1,22 @@
-import type { Meta, StoryObj } from '@storybook/angular';
+import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
 import { FormComponent } from './form.component';
 import { userEvent, within } from '@storybook/testing-library';
+import { ReactiveFormsModule } from '@angular/forms';
 
 const meta: Meta<FormComponent> = {
   title: 'Example/Form',
   component: FormComponent,
   tags: ['autodocs'],
+  decorators: [
+    moduleMetadata({
+      imports: [ReactiveFormsModule],
+    }),
+  ],
+  render: (args: FormComponent) => ({
+    props: {
+      ...args,
+    },
+  }),
 };
 
 export default meta;
@@ -23,11 +34,13 @@ export const Disable: Story = {
   },
 };
 
+export const EmptyForm: Story = {};
+
 export const Submitted: Story = {
   play: async ({ args, canvasElement, step }) => {
     const canvas = within(canvasElement);
 
-    await step('Enter user and address', async () => {
+    await step('Enter user and address information', async () => {
       await userEvent.click(canvas.getByTestId('first-name'));
       await userEvent.type(canvas.getByTestId('first-name'), 'John');
       await userEvent.type(canvas.getByTestId('last-name'), 'Wick');
@@ -50,10 +63,10 @@ export const Submitted: Story = {
       await userEvent.click(canvas.getByTestId('submit'));
     });
 
-    // await step('Auto populate and submit', async () => {
-    //   await userEvent.click(canvas.getByTestId('auto-populate'));
-    //  // await userEvent.click(canvas.getByTestId('submit'));
-    // });
+    await step('Auto populate and submit', async () => {
+      await userEvent.click(canvas.getByTestId('auto-populate'));
+      await userEvent.click(canvas.getByTestId('submit'));
+    });
   },
   args: {
     showLog: true,

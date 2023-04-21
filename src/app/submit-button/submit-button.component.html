@@ -1,1 +1,8 @@
-<button type="button" (click)="updateProfile()">Update Profile</button>
+<button
+  data-testid="standalone-submit-button"
+  type="button"
+  (click)="submit()"
+  [disabled]="isDisabled"
+>
+  {{ buttonName }}
+</button>

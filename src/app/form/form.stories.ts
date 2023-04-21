@@ -35,8 +35,6 @@ export const Disable: Story = {
   },
 };
 
-export const EmptyForm: Story = {};
-
 export const Submitted: Story = {
   play: async ({ args, canvasElement, step }) => {
     const canvas = within(canvasElement);

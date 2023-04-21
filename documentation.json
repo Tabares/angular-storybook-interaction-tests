@@ -22,7 +22,7 @@
     "components": [
         {
             "name": "AppComponent",
-            "id": "component-AppComponent-92b900a27e5c2a1e970aa593411cf999b15f8a64f1393a7a9b29a5c615dec7b70515e17dd666d7c34869657ec59cee00e6271f76e104b1c3a09fe9b9557009ae",
+            "id": "component-AppComponent-3bd55507ea075465f10bb42cf97aaf20625b17c1b4c397f6bd6562c96c8e9e22573a98085bdc061631e217117991df3351d616347d3c9a75a8b2227b00249656",
             "file": "src/app/app.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -43,7 +43,7 @@
             "propertiesClass": [
                 {
                     "name": "title",
-                    "defaultValue": "'myApp'",
+                    "defaultValue": "'angular-storybook-interaction-tests'",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "string",
@@ -60,7 +60,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\n\n@Component({\n  selector: 'app-root',\n  templateUrl: './app.component.html',\n  styleUrls: ['./app.component.scss']\n})\nexport class AppComponent {\n  title = 'myApp';\n}\n",
+            "sourceCode": "import { Component } from '@angular/core';\n\n@Component({\n  selector: 'app-root',\n  templateUrl: './app.component.html',\n  styleUrls: ['./app.component.scss']\n})\nexport class AppComponent {\n  title = 'angular-storybook-interaction-tests';\n}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -197,7 +197,7 @@
         },
         {
             "name": "DropdownComponent",
-            "id": "component-DropdownComponent-e7ab55e5b763238cef529f8326a47712250664c92789fc491eec5cecba5eceb1565ae16f785b0b0bb755b341429b4134b8b61b97159b259cc3690f5be8b3141a",
+            "id": "component-DropdownComponent-b769b7db779e43d178cbeffb6cda76ca8e5c44ccbc34a3636290f6d14bed801f489b2a00218cc94fae3cfb49992c58131cc0141465373c8ed9a05c2f9634b385",
             "file": "src/app/dropdown/dropdown.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -213,7 +213,17 @@
                 "./dropdown.component.html"
             ],
             "viewProviders": [],
-            "inputsClass": [],
+            "inputsClass": [
+                {
+                    "name": "options",
+                    "defaultValue": "[]",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 10,
+                    "type": "Array<string>",
+                    "decorators": []
+                }
+            ],
             "outputsClass": [],
             "propertiesClass": [],
             "methodsClass": [],
@@ -224,7 +234,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\n\n@Component({\n  selector: 'app-dropdown',\n  templateUrl: './dropdown.component.html',\n  styleUrls: ['./dropdown.component.scss']\n})\nexport class DropdownComponent {\n\n}\n",
+            "sourceCode": "import { Component, Input } from '@angular/core';\n\n@Component({\n  selector: 'app-dropdown',\n  templateUrl: './dropdown.component.html',\n  styleUrls: ['./dropdown.component.scss']\n})\nexport class DropdownComponent {\n  @Input()\n  options: Array<string> = [];\n}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -233,7 +243,7 @@
                 }
             ],
             "stylesData": "",
-            "templateData": "<label for=\"cars\">Choose a car:</label>\n\n<select name=\"cars\" id=\"cars\">\n  <option value=\"volvo\">Volvo</option>\n  <option value=\"saab\">Saab</option>\n  <option value=\"mercedes\">Mercedes</option>\n  <option value=\"audi\">Audi</option>\n</select>\n"
+            "templateData": "<label for=\"cars\">Choose a car:</label>\n\n<select name=\"cars\" id=\"cars\" data-testid=\"dropdown\">\n  <option *ngFor=\"let option of options\" value={{option}}>\n    {{ option }}\n  </option>\n</select>\n"
         },
         {
             "name": "FooterComponent",
@@ -404,7 +414,7 @@
                     }
                 }
             },
-            "templateData": "<form [formGroup]=\"profileForm\" (ngSubmit)=\"onSubmit()\">\n  <label for=\"first-name\">First Name: </label>\n  <input data-testid=\"first-name\" id=\"first-name\" type=\"text\" formControlName=\"firstName\" required />\n\n  <label for=\"last-name\">Last Name: </label>\n  <input data-testid=\"last-name\" id=\"last-name\" type=\"text\" formControlName=\"lastName\" />\n\n  <div formGroupName=\"address\">\n    <h2>Address</h2>\n\n    <label for=\"street\">Street: </label>\n    <input data-testid=\"street\" id=\"street\" type=\"text\" formControlName=\"street\" />\n\n    <label for=\"city\">City: </label>\n    <input data-testid=\"city\" id=\"city\" type=\"text\" formControlName=\"city\" />\n\n    <label for=\"state\">State: </label>\n    <input data-testid=\"state\" id=\"state\" type=\"text\" formControlName=\"state\" />\n\n    <label for=\"zip\">Zip Code: </label>\n    <input data-testid=\"zip\" id=\"zip\" type=\"text\" formControlName=\"zip\" />\n  </div>\n\n  <div formArrayName=\"aliases\">\n    <h2>Aliases</h2>\n    <button data-testid=\"add-alias\" type=\"button\" (click)=\"addAlias()\">+ Add another alias</button>\n\n    <div *ngFor=\"let alias of aliases.controls; let i = index\">\n      <!-- The repeated alias template -->\n      <label for=\"alias-{{ i }}\">Alias:</label>\n      <input data-testid=\"alias\" id=\"alias-{{ i }}\" type=\"text\" [formControlName]=\"i\" />\n    </div>\n  </div>\n\n  <p>Complete the form to enable button.</p>\n  <button  data-testid=\"submit\" type=\"submit\" [disabled]=\"!profileForm.valid\">Submit</button>\n</form>\n\n<hr />\n<div [hidden]=\"!showLog\">\n  <p>Form Value: {{ profileForm.value | json }}</p>\n\n  <p>Form Status: {{ profileForm.status }}</p>\n</div>\n\n<button data-testid=\"auto-populate\" type=\"button\" (click)=\"updateProfile()\">Update Profile</button>\n"
+            "templateData": "<form [formGroup]=\"profileForm\" (ngSubmit)=\"onSubmit()\" data-testid=\"profile-form\">\n  <label for=\"first-name\">First Name: </label>\n  <input data-testid=\"first-name\" name=\"firstName\" id=\"first-name\" type=\"text\" formControlName=\"firstName\" required />\n\n  <label for=\"last-name\">Last Name: </label>\n  <input data-testid=\"last-name\" id=\"last-name\" type=\"text\" formControlName=\"lastName\" />\n\n  <div formGroupName=\"address\">\n    <h2>Address</h2>\n\n    <label for=\"street\">Street: </label>\n    <input data-testid=\"street\" id=\"street\" type=\"text\" formControlName=\"street\" />\n\n    <label for=\"city\">City: </label>\n    <input data-testid=\"city\" id=\"city\" type=\"text\" formControlName=\"city\" />\n\n    <label for=\"state\">State: </label>\n    <input data-testid=\"state\" id=\"state\" type=\"text\" formControlName=\"state\" />\n\n    <label for=\"zip\">Zip Code: </label>\n    <input data-testid=\"zip\" id=\"zip\" type=\"text\" formControlName=\"zip\" />\n  </div>\n\n  <div formArrayName=\"aliases\">\n    <h2>Aliases</h2>\n    <button data-testid=\"add-alias\" type=\"button\" (click)=\"addAlias()\">+ Add another alias</button>\n\n    <div *ngFor=\"let alias of aliases.controls; let i = index\">\n      <!-- The repeated alias template -->\n      <label for=\"alias-{{ i }}\">Alias:</label>\n      <input data-testid=\"alias\" id=\"alias-{{ i }}\" type=\"text\" [formControlName]=\"i\" />\n    </div>\n  </div>\n\n  <p>Complete the form to enable button.</p>\n  <button  data-testid=\"submit\" type=\"submit\" [disabled]=\"!profileForm.valid\">Submit</button>\n</form>\n\n<hr />\n<div [hidden]=\"!showLog\">\n  <p>Form Value: {{ profileForm.value | json }}</p>\n\n  <p>Form Status: {{ profileForm.status }}</p>\n</div>\n\n<button data-testid=\"auto-populate\" type=\"button\" (click)=\"updateProfile()\">Update Profile</button>\n"
         },
         {
             "name": "HeaderComponent",
@@ -702,7 +712,7 @@
         },
         {
             "name": "SubmitButtonComponent",
-            "id": "component-SubmitButtonComponent-d1ea3ce570af8ae61b69fe9786eac1c35a2e1ddc465aa2f4c3bf7eac89ea63cf52dc6014de2dcf627992039a9548bbcf9bf5078462673df969921998b24e5e94",
+            "id": "component-SubmitButtonComponent-0a467fda794dfa548bba6f2d95231681c2e8c82aa9c4dfb83ec329c7921f2b906ecbe93b6395441c438fc5c18d3efacce9bc5307a54f3b2b16acb6e48d581cd3",
             "file": "src/app/submit-button/submit-button.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -718,17 +728,36 @@
                 "./submit-button.component.html"
             ],
             "viewProviders": [],
-            "inputsClass": [],
+            "inputsClass": [
+                {
+                    "name": "buttonName",
+                    "defaultValue": "'Submit'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 12,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
+                    "name": "isDisabled",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 13,
+                    "type": "boolean",
+                    "decorators": []
+                }
+            ],
             "outputsClass": [],
             "propertiesClass": [],
             "methodsClass": [
                 {
-                    "name": "updateProfile",
+                    "name": "submit",
                     "args": [],
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 12,
+                    "line": 15,
                     "deprecated": false,
                     "deprecationMessage": ""
                 }
@@ -740,7 +769,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\nimport { CommonModule } from '@angular/common';\n\n@Component({\n  selector: 'app-submit-button',\n  standalone: true,\n  imports: [CommonModule],\n  templateUrl: './submit-button.component.html',\n  styleUrls: ['./submit-button.component.scss'],\n})\nexport class SubmitButtonComponent {\n  updateProfile() {\n    console.log('Update');\n  }\n}\n",
+            "sourceCode": "import { Component, Input } from '@angular/core';\nimport { CommonModule } from '@angular/common';\n\n@Component({\n  selector: 'app-submit-button',\n  standalone: true,\n  imports: [CommonModule],\n  templateUrl: './submit-button.component.html',\n  styleUrls: ['./submit-button.component.scss'],\n})\nexport class SubmitButtonComponent {\n  @Input() buttonName: string = 'Submit';\n  @Input() isDisabled: boolean = false;\n\n  submit() {\n    console.log('Update');\n    this.isDisabled = true;\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -749,7 +778,7 @@
                 }
             ],
             "stylesData": "",
-            "templateData": "<button type=\"button\" (click)=\"updateProfile()\">Update Profile</button>\n"
+            "templateData": "<button\n  data-testid=\"standalone-submit-button\"\n  type=\"button\"\n  (click)=\"submit()\"\n  [disabled]=\"isDisabled\"\n>\n  {{ buttonName }}\n</button>\n"
         }
     ],
     "modules": [
@@ -879,14 +908,24 @@
                 "defaultValue": "{\r\n  args: {\r\n    primary: false,\r\n  },\r\n}"
             },
             {
-                "name": "EmptyForm",
+                "name": "Disabled",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/form/form.stories.ts",
+                "file": "src/app/submit-button/submit-button.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{}"
+                "defaultValue": "{\r\n  args: {\r\n    buttonName: 'Disabled',\r\n    isDisabled: true,\r\n  },\r\n  play: async ({ args, canvasElement, step }) => {\r\n    const canvas = within(canvasElement);\r\n\r\n    await step('Click submit button', async () => {\r\n      const submitButton = canvas.getByTestId('standalone-submit-button');\r\n\r\n      await expect(submitButton).toHaveProperty('disabled');\r\n    });\r\n  },\r\n}"
+            },
+            {
+                "name": "Empty",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/dropdown/dropdown.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n  args: {},\r\n}"
             },
             {
                 "name": "Enable",
@@ -909,16 +948,6 @@
                 "defaultValue": "{\r\n  args: {\r\n    primary: true,\r\n  },\r\n}"
             },
             {
-                "name": "Enable",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/app/dropdown/dropdown.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story",
-                "defaultValue": "{\r\n  args: {},\r\n}"
-            },
-            {
                 "name": "Large",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -927,6 +956,16 @@
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{\n  args: {\n    size: 'large',\n    label: 'Button',\n  },\n}"
+            },
+            {
+                "name": "List",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/dropdown/dropdown.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n  args: {\r\n    options: ['Volvo', 'Mercedes', 'Audi', 'Saab'],\r\n  },\r\n  play: async ({ args, canvasElement, step }) => {\r\n    const canvas = within(canvasElement);\r\n    const { options } = args;\r\n    const [val1, val2, val3, val4] = options;\r\n\r\n    await step('Select dropdown options', async () => {\r\n      const dropdown = canvas.getByTestId('dropdown');\r\n      const option1 = canvas.getByText(val1);\r\n\r\n      await userEvent.click(dropdown);\r\n      await userEvent.selectOptions(dropdown, val2);\r\n      await userEvent.selectOptions(dropdown, val1);\r\n      await userEvent.selectOptions(dropdown, val4);\r\n      await userEvent.selectOptions(dropdown, val3);\r\n\r\n      await expect(dropdown.textContent).toBe(' Volvo  Mercedes  Audi  Saab ');\r\n      // expect(option1.select).toBe(true);\r\n     // expect(canvas.getByRole('option', { name: val1 })).toHaveValue('');\r\n    });\r\n  },\r\n}"
             },
             {
                 "name": "LoggedIn",
@@ -982,16 +1021,6 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/stories/Header.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Meta<Header>",
-                "defaultValue": "{\n  title: 'Example/Header',\n  component: Header,\n  // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/angular/writing-docs/autodocs\n  tags: ['autodocs'],\n  render: (args) => ({ props: args }),\n  decorators: [\n    moduleMetadata({\n      declarations: [Button],\n      imports: [CommonModule],\n    }),\n  ],\n  parameters: {\n    // More on how to position stories at: https://storybook.js.org/docs/angular/configure/story-layout\n    layout: 'fullscreen',\n  },\n}"
-            },
-            {
-                "name": "meta",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "src/stories/notice.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -1002,11 +1031,31 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "src/stories/Header.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<Header>",
+                "defaultValue": "{\n  title: 'Example/Header',\n  component: Header,\n  // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/angular/writing-docs/autodocs\n  tags: ['autodocs'],\n  render: (args) => ({ props: args }),\n  decorators: [\n    moduleMetadata({\n      declarations: [Button],\n      imports: [CommonModule],\n    }),\n  ],\n  parameters: {\n    // More on how to position stories at: https://storybook.js.org/docs/angular/configure/story-layout\n    layout: 'fullscreen',\n  },\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "src/stories/Page.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<Page>",
                 "defaultValue": "{\n  title: 'Example/Page',\n  component: Page,\n  parameters: {\n    // More on how to position stories at: https://storybook.js.org/docs/angular/configure/story-layout\n    layout: 'fullscreen',\n  },\n  decorators: [\n    moduleMetadata({\n      declarations: [Button, Header],\n      imports: [CommonModule],\n    }),\n  ],\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/dropdown/dropdown.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<DropdownComponent>",
+                "defaultValue": "{\r\n  title: 'Example/Dropdown',\r\n  component: DropdownComponent,\r\n  tags: ['autodocs'],\r\n}"
             },
             {
                 "name": "meta",
@@ -1032,11 +1081,11 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/dropdown/dropdown.stories.ts",
+                "file": "src/app/submit-button/submit-button.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "type": "Meta<DropdownComponent>",
-                "defaultValue": "{\r\n  title: 'Example/Dropdown',\r\n  component: DropdownComponent,\r\n  tags: ['autodocs'],\r\n}"
+                "type": "Meta<SubmitButtonComponent>",
+                "defaultValue": "{\r\n  title: 'Example/SubmitButton',\r\n  component: SubmitButtonComponent,\r\n  tags: ['autodocs'],\r\n}"
             },
             {
                 "name": "preview",
@@ -1057,6 +1106,16 @@
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{\n  args: {\n    primary: true,\n    label: 'Button',\n  },\n}"
+            },
+            {
+                "name": "Sample",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/submit-button/submit-button.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n  args: {\r\n    buttonName: 'Sample',\r\n    isDisabled: false,\r\n  },\r\n  play: async ({ args, canvasElement, step }) => {\r\n    const canvas = within(canvasElement);\r\n\r\n    await step('Click submit button', async () => {\r\n      const submitButton = canvas.getByTestId('standalone-submit-button');\r\n\r\n      await userEvent.click(submitButton);\r\n\r\n      await expect(submitButton).toHaveProperty('disabled');\r\n    });\r\n  },\r\n}"
             },
             {
                 "name": "Secondary",
@@ -1086,7 +1145,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\r\n  play: async ({ args, canvasElement, step }) => {\r\n    const canvas = within(canvasElement);\r\n    const submitButton = canvas.getByTestId('submit') as any;\r\n\r\n    await step('Enter user and address information', async () => {\r\n      await expect(submitButton).toHaveProperty('disabled');\r\n\r\n      await userEvent.click(canvas.getByTestId('first-name'));\r\n      await userEvent.type(canvas.getByTestId('first-name'), 'John');\r\n\r\n      await userEvent.type(canvas.getByTestId('last-name'), 'Wick');\r\n      await userEvent.type(canvas.getByTestId('street'), '121 Mill Neck');\r\n      await userEvent.type(canvas.getByTestId('city'), 'Long Island');\r\n      await userEvent.type(canvas.getByTestId('state'), 'NY');\r\n      await userEvent.type(canvas.getByTestId('zip'), '11765');\r\n\r\n      await expect(submitButton).toHaveProperty('disabled');\r\n      await expect(submitButton).toHaveProperty('type', 'submit');\r\n      // await expect(submitButton).toHaveStyle(\r\n      //   'background-color: rgb(240, 240, 240)'\r\n      // );\r\n    });\r\n\r\n    await step('Enter two alias', async () => {\r\n      await userEvent.type(canvas.getByTestId('alias'), 'Baba Yaga');\r\n      await userEvent.click(canvas.getByTestId('add-alias'));\r\n\r\n      const [, alias2] = canvas.getAllByTestId('alias');\r\n\r\n      await userEvent.type(alias2, 'Jonathan');\r\n    });\r\n\r\n    await step('Submit form', async () => {\r\n      await userEvent.click(submitButton);\r\n    });\r\n\r\n    await step('Auto populate and submit', async () => {\r\n      await userEvent.click(canvas.getByTestId('auto-populate'));\r\n      await userEvent.click(submitButton);\r\n    });\r\n  },\r\n  args: {\r\n    showLog: true,\r\n  },\r\n}"
+                "defaultValue": "{\r\n  play: async ({ args, canvasElement, step }) => {\r\n    const canvas = within(canvasElement);\r\n    const submitButton = canvas.getByTestId('submit') as any;\r\n\r\n    await step('Enter user and address information', async () => {\r\n      await expect(submitButton).toHaveProperty('disabled');\r\n\r\n      await userEvent.click(canvas.getByTestId('first-name'));\r\n      await userEvent.type(canvas.getByTestId('first-name'), 'John');\r\n\r\n      await userEvent.type(canvas.getByTestId('last-name'), 'Wick');\r\n      await userEvent.type(canvas.getByTestId('street'), '121 Mill Neck');\r\n      await userEvent.type(canvas.getByTestId('city'), 'Long Island');\r\n      await userEvent.type(canvas.getByTestId('state'), 'NY');\r\n      await userEvent.type(canvas.getByTestId('zip'), '11765');\r\n\r\n      await expect(submitButton).toHaveProperty('disabled');\r\n      await expect(submitButton).toHaveProperty('type', 'submit');\r\n    });\r\n\r\n    await step('Enter two alias', async () => {\r\n      await userEvent.type(canvas.getByTestId('alias'), 'Baba Yaga');\r\n      await userEvent.click(canvas.getByTestId('add-alias'));\r\n\r\n      const [, alias2] = canvas.getAllByTestId('alias');\r\n\r\n      await userEvent.type(alias2, 'Jonathan');\r\n    });\r\n\r\n    await step('Submit form', async () => {\r\n      await userEvent.click(submitButton);\r\n    });\r\n\r\n    await step('Auto populate and submit', async () => {\r\n      await userEvent.click(canvas.getByTestId('auto-populate'));\r\n      await userEvent.click(submitButton);\r\n    });\r\n  },\r\n  args: {\r\n    showLog: true,\r\n  },\r\n}"
             }
         ],
         "functions": [],
@@ -1097,17 +1156,6 @@
                 "subtype": "typealias",
                 "rawtype": "StoryObj<Button>",
                 "file": "src/stories/Button.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "description": "",
-                "kind": 177
-            },
-            {
-                "name": "Story",
-                "ctype": "miscellaneous",
-                "subtype": "typealias",
-                "rawtype": "StoryObj<Header>",
-                "file": "src/stories/Header.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -1128,8 +1176,30 @@
                 "name": "Story",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
+                "rawtype": "StoryObj<Header>",
+                "file": "src/stories/Header.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 177
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
                 "rawtype": "StoryObj<Page>",
                 "file": "src/stories/Page.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 177
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "StoryObj<DropdownComponent>",
+                "file": "src/app/dropdown/dropdown.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -1161,8 +1231,8 @@
                 "name": "Story",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
-                "rawtype": "StoryObj<DropdownComponent>",
-                "file": "src/app/dropdown/dropdown.stories.ts",
+                "rawtype": "StoryObj<SubmitButtonComponent>",
+                "file": "src/app/submit-button/submit-button.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -1181,16 +1251,6 @@
                     "deprecationMessage": "",
                     "type": "Story",
                     "defaultValue": "{\r\n  args: {\r\n    showLog: false,\r\n  },\r\n}"
-                },
-                {
-                    "name": "EmptyForm",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/form/form.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{}"
                 },
                 {
                     "name": "Enable",
@@ -1220,7 +1280,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\r\n  play: async ({ args, canvasElement, step }) => {\r\n    const canvas = within(canvasElement);\r\n    const submitButton = canvas.getByTestId('submit') as any;\r\n\r\n    await step('Enter user and address information', async () => {\r\n      await expect(submitButton).toHaveProperty('disabled');\r\n\r\n      await userEvent.click(canvas.getByTestId('first-name'));\r\n      await userEvent.type(canvas.getByTestId('first-name'), 'John');\r\n\r\n      await userEvent.type(canvas.getByTestId('last-name'), 'Wick');\r\n      await userEvent.type(canvas.getByTestId('street'), '121 Mill Neck');\r\n      await userEvent.type(canvas.getByTestId('city'), 'Long Island');\r\n      await userEvent.type(canvas.getByTestId('state'), 'NY');\r\n      await userEvent.type(canvas.getByTestId('zip'), '11765');\r\n\r\n      await expect(submitButton).toHaveProperty('disabled');\r\n      await expect(submitButton).toHaveProperty('type', 'submit');\r\n      // await expect(submitButton).toHaveStyle(\r\n      //   'background-color: rgb(240, 240, 240)'\r\n      // );\r\n    });\r\n\r\n    await step('Enter two alias', async () => {\r\n      await userEvent.type(canvas.getByTestId('alias'), 'Baba Yaga');\r\n      await userEvent.click(canvas.getByTestId('add-alias'));\r\n\r\n      const [, alias2] = canvas.getAllByTestId('alias');\r\n\r\n      await userEvent.type(alias2, 'Jonathan');\r\n    });\r\n\r\n    await step('Submit form', async () => {\r\n      await userEvent.click(submitButton);\r\n    });\r\n\r\n    await step('Auto populate and submit', async () => {\r\n      await userEvent.click(canvas.getByTestId('auto-populate'));\r\n      await userEvent.click(submitButton);\r\n    });\r\n  },\r\n  args: {\r\n    showLog: true,\r\n  },\r\n}"
+                    "defaultValue": "{\r\n  play: async ({ args, canvasElement, step }) => {\r\n    const canvas = within(canvasElement);\r\n    const submitButton = canvas.getByTestId('submit') as any;\r\n\r\n    await step('Enter user and address information', async () => {\r\n      await expect(submitButton).toHaveProperty('disabled');\r\n\r\n      await userEvent.click(canvas.getByTestId('first-name'));\r\n      await userEvent.type(canvas.getByTestId('first-name'), 'John');\r\n\r\n      await userEvent.type(canvas.getByTestId('last-name'), 'Wick');\r\n      await userEvent.type(canvas.getByTestId('street'), '121 Mill Neck');\r\n      await userEvent.type(canvas.getByTestId('city'), 'Long Island');\r\n      await userEvent.type(canvas.getByTestId('state'), 'NY');\r\n      await userEvent.type(canvas.getByTestId('zip'), '11765');\r\n\r\n      await expect(submitButton).toHaveProperty('disabled');\r\n      await expect(submitButton).toHaveProperty('type', 'submit');\r\n    });\r\n\r\n    await step('Enter two alias', async () => {\r\n      await userEvent.type(canvas.getByTestId('alias'), 'Baba Yaga');\r\n      await userEvent.click(canvas.getByTestId('add-alias'));\r\n\r\n      const [, alias2] = canvas.getAllByTestId('alias');\r\n\r\n      await userEvent.type(alias2, 'Jonathan');\r\n    });\r\n\r\n    await step('Submit form', async () => {\r\n      await userEvent.click(submitButton);\r\n    });\r\n\r\n    await step('Auto populate and submit', async () => {\r\n      await userEvent.click(canvas.getByTestId('auto-populate'));\r\n      await userEvent.click(submitButton);\r\n    });\r\n  },\r\n  args: {\r\n    showLog: true,\r\n  },\r\n}"
                 }
             ],
             "src/app/notice/notice.stories.ts": [
@@ -1255,9 +1315,41 @@
                     "defaultValue": "{\r\n  title: 'Example/Notice',\r\n  component: NoticeComponent,\r\n  tags: ['autodocs'],\r\n  render: (args: NoticeComponent) => ({\r\n    props: {\r\n      backgroundColor: null,\r\n      ...args,\r\n    },\r\n  }),\r\n  argTypes: {\r\n    backgroundColor: {\r\n      control: 'color',\r\n    },\r\n  },\r\n}"
                 }
             ],
+            "src/app/submit-button/submit-button.stories.ts": [
+                {
+                    "name": "Disabled",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/submit-button/submit-button.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n  args: {\r\n    buttonName: 'Disabled',\r\n    isDisabled: true,\r\n  },\r\n  play: async ({ args, canvasElement, step }) => {\r\n    const canvas = within(canvasElement);\r\n\r\n    await step('Click submit button', async () => {\r\n      const submitButton = canvas.getByTestId('standalone-submit-button');\r\n\r\n      await expect(submitButton).toHaveProperty('disabled');\r\n    });\r\n  },\r\n}"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/submit-button/submit-button.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<SubmitButtonComponent>",
+                    "defaultValue": "{\r\n  title: 'Example/SubmitButton',\r\n  component: SubmitButtonComponent,\r\n  tags: ['autodocs'],\r\n}"
+                },
+                {
+                    "name": "Sample",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/submit-button/submit-button.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n  args: {\r\n    buttonName: 'Sample',\r\n    isDisabled: false,\r\n  },\r\n  play: async ({ args, canvasElement, step }) => {\r\n    const canvas = within(canvasElement);\r\n\r\n    await step('Click submit button', async () => {\r\n      const submitButton = canvas.getByTestId('standalone-submit-button');\r\n\r\n      await userEvent.click(submitButton);\r\n\r\n      await expect(submitButton).toHaveProperty('disabled');\r\n    });\r\n  },\r\n}"
+                }
+            ],
             "src/app/dropdown/dropdown.stories.ts": [
                 {
-                    "name": "Enable",
+                    "name": "Empty",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "src/app/dropdown/dropdown.stories.ts",
@@ -1265,6 +1357,16 @@
                     "deprecationMessage": "",
                     "type": "Story",
                     "defaultValue": "{\r\n  args: {},\r\n}"
+                },
+                {
+                    "name": "List",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/dropdown/dropdown.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n  args: {\r\n    options: ['Volvo', 'Mercedes', 'Audi', 'Saab'],\r\n  },\r\n  play: async ({ args, canvasElement, step }) => {\r\n    const canvas = within(canvasElement);\r\n    const { options } = args;\r\n    const [val1, val2, val3, val4] = options;\r\n\r\n    await step('Select dropdown options', async () => {\r\n      const dropdown = canvas.getByTestId('dropdown');\r\n      const option1 = canvas.getByText(val1);\r\n\r\n      await userEvent.click(dropdown);\r\n      await userEvent.selectOptions(dropdown, val2);\r\n      await userEvent.selectOptions(dropdown, val1);\r\n      await userEvent.selectOptions(dropdown, val4);\r\n      await userEvent.selectOptions(dropdown, val3);\r\n\r\n      await expect(dropdown.textContent).toBe(' Volvo  Mercedes  Audi  Saab ');\r\n      // expect(option1.select).toBe(true);\r\n     // expect(canvas.getByRole('option', { name: val1 })).toHaveValue('');\r\n    });\r\n  },\r\n}"
                 },
                 {
                     "name": "meta",
@@ -1434,19 +1536,6 @@
                     "kind": 177
                 }
             ],
-            "src/stories/Header.stories.ts": [
-                {
-                    "name": "Story",
-                    "ctype": "miscellaneous",
-                    "subtype": "typealias",
-                    "rawtype": "StoryObj<Header>",
-                    "file": "src/stories/Header.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "description": "",
-                    "kind": 177
-                }
-            ],
             "src/stories/notice.stories.ts": [
                 {
                     "name": "Story",
@@ -1460,6 +1549,19 @@
                     "kind": 177
                 }
             ],
+            "src/stories/Header.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj<Header>",
+                    "file": "src/stories/Header.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 177
+                }
+            ],
             "src/stories/Page.stories.ts": [
                 {
                     "name": "Story",
@@ -1467,6 +1569,19 @@
                     "subtype": "typealias",
                     "rawtype": "StoryObj<Page>",
                     "file": "src/stories/Page.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 177
+                }
+            ],
+            "src/app/dropdown/dropdown.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj<DropdownComponent>",
+                    "file": "src/app/dropdown/dropdown.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
@@ -1499,13 +1614,13 @@
                     "kind": 177
                 }
             ],
-            "src/app/dropdown/dropdown.stories.ts": [
+            "src/app/submit-button/submit-button.stories.ts": [
                 {
                     "name": "Story",
                     "ctype": "miscellaneous",
                     "subtype": "typealias",
-                    "rawtype": "StoryObj<DropdownComponent>",
-                    "file": "src/app/dropdown/dropdown.stories.ts",
+                    "rawtype": "StoryObj<SubmitButtonComponent>",
+                    "file": "src/app/submit-button/submit-button.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
@@ -1557,6 +1672,16 @@
                 "linktype": "component",
                 "name": "DropdownComponent",
                 "coveragePercent": 0,
+                "coverageCount": "0/2",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/dropdown/dropdown.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Empty",
+                "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
             },
@@ -1565,7 +1690,7 @@
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
-                "name": "Enable",
+                "name": "List",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
@@ -1604,16 +1729,6 @@
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
                 "name": "Disable",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "src/app/form/form.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "EmptyForm",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
@@ -1711,7 +1826,37 @@
                 "linktype": "component",
                 "name": "SubmitButtonComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/2",
+                "coverageCount": "0/4",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/submit-button/submit-button.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Disabled",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/submit-button/submit-button.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/submit-button/submit-button.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Sample",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
                 "status": "low"
             },
             {

@@ -277,7 +277,7 @@
         },
         {
             "name": "FormComponent",
-            "id": "component-FormComponent-3ebe17b2fee272d03adc1ca8782c6fc91dad0998b2b0c3a043c01bd8c14fc1e2331a57f8a706c5f4b669167740f5826e25648e8e533fdd6e231a4014411bf80c",
+            "id": "component-FormComponent-0a0ca9f6a49deba5e1912c6897bfa9e4f8d65204d73479dcbfda530970c74907768ef34a6f2d2c8f78308e47c5534059ed344030a9c54aa08f8b275465f3047e",
             "file": "src/app/form/form.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -308,7 +308,6 @@
             "propertiesClass": [
                 {
                     "name": "profileForm",
-                    "defaultValue": "this.fb.group({\n    firstName: ['', Validators.required],\n    lastName: [''],\n    address: this.fb.group({\n      street: [''],\n      city: [''],\n      state: [''],\n      zip: [''],\n    }),\n    aliases: this.fb.array([this.fb.control('')]),\n  })",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
@@ -327,7 +326,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 38,
+                    "line": 40,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -337,7 +336,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 42,
+                    "line": 44,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -347,7 +346,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 29,
+                    "line": 31,
                     "deprecated": false,
                     "deprecationMessage": ""
                 }
@@ -359,7 +358,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, Input } from '@angular/core';\nimport { FormArray, FormBuilder, Validators } from '@angular/forms';\n\n@Component({\n  selector: 'app-form',\n  templateUrl: './form.component.html',\n  styleUrls: ['./form.component.scss'],\n})\nexport class FormComponent {\n  @Input() showLog = false;\n  public profileForm = this.fb.group({\n    firstName: ['', Validators.required],\n    lastName: [''],\n    address: this.fb.group({\n      street: [''],\n      city: [''],\n      state: [''],\n      zip: [''],\n    }),\n    aliases: this.fb.array([this.fb.control('')]),\n  });\n\n  get aliases() {\n    return this.profileForm.get('aliases') as FormArray;\n  }\n\n  constructor(private fb: FormBuilder) {}\n\n  updateProfile() {\n    this.profileForm.patchValue({\n      firstName: 'Nancy',\n      address: {\n        street: '123 Drew Street',\n      },\n    });\n  }\n\n  addAlias() {\n    this.aliases.push(this.fb.control(''));\n  }\n\n  onSubmit() {\n    // TODO: Use EventEmitter with form value\n    console.warn(this.profileForm.value);\n  }\n}\n",
+            "sourceCode": "import { Component, Input } from '@angular/core';\nimport { FormArray, FormBuilder, Validators } from '@angular/forms';\n\n@Component({\n  selector: 'app-form',\n  templateUrl: './form.component.html',\n  styleUrls: ['./form.component.scss'],\n})\nexport class FormComponent {\n  @Input() showLog = false;\n  public profileForm;\n\n  get aliases() {\n    return this.profileForm.get('aliases') as FormArray;\n  }\n\n  constructor(private fb: FormBuilder) {\n    this.profileForm = this.fb.group({\n      firstName: ['', Validators.required],\n      lastName: [''],\n      address: this.fb.group({\n        street: [''],\n        city: [''],\n        state: [''],\n        zip: [''],\n      }),\n      aliases: this.fb.array([this.fb.control('')]),\n    });\n  }\n\n  updateProfile() {\n    this.profileForm.patchValue({\n      firstName: 'Nancy',\n      address: {\n        street: '123 Drew Street',\n      },\n    });\n  }\n\n  addAlias() {\n    this.aliases.push(this.fb.control(''));\n  }\n\n  onSubmit() {\n    // TODO: Use EventEmitter with form value\n    console.warn(this.profileForm.value);\n  }\n}\n\n// import { storiesOf, moduleMetadata } from \"@storybook/angular\";\n// import { action } from \"@storybook/addon-actions\";\n// import {\n// \twithKnobs,\n// \tarray,\n// \tselect,\n// \ttext,\n// \tboolean\n// } from \"@storybook/addon-knobs/angular\";\n// import {\n// \tFormBuilder,\n// \tFormGroup,\n// \tValidators,\n// \tFormsModule,\n// \tReactiveFormsModule\n// } from \"@angular/forms\";\n// import {\n// \tComponent,\n// \tOutput,\n// \tEventEmitter,\n// \tInput\n// } from \"@angular/core\";\n// import { DatePickerModule } from \"../datepicker/index\";\n// import { ButtonModule } from \"../forms/index\";\n// import { TabsModule } from \"../tabs/index\";\n// import { ModalModule, BaseModal } from \"../modal/index\";\n// import { DocumentationModule } from \"./../documentation-component/documentation.module\";\n\n// const modalText =\n// \t`Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi non egestas neque.\n// \tEtiam aliquet nisl non volutpat vehicula.\n// \tAliquam finibus sapien et erat suscipit euismod.\n// \tSed dapibus condimentum nisl, eu condimentum felis tempor sit amet. Pellentesque tempus velit vel nisi scelerisque facilisis.\n// \tUt dapibus nibh ac suscipit venenatis.\n// \tAliquam ex purus, consequat eu volutpat vel, scelerisque vel leo. Nunc congue tellus lectus, pretium lobortis erat mattis congue.\n// \tUt dapibus nibh ac suscipit venenatis.\n// \tAliquam ex purus, consequat eu volutpat vel, scelerisque vel leo. Nunc congue tellus lectus, pretium lobortis erat mattis congue.\n// \tInteger facilisis, erat nec iaculis gravida, est libero ornare mauris, venenatis mollis risus eros et metus.\n// \tSed ornare massa tristique arcu pulvinar fermentum.`;\n\n// @Component({\n// \tselector: \"app-date-picker\",\n// \ttemplate: `\n// \t\t<form [formGroup]=\"formGroup\">\n// \t\t\t<ibm-date-picker\n// \t\t\t\tformControlName=\"single\"\n// \t\t\t\tlabel=\"Date Picker Label\"\n// \t\t\t\tinvalidText=\"Invalid date format\"\n// \t\t\t\t[invalid]=\"invalidSingle\"\n// \t\t\t\t(valueChange)=\"valueChange.emit($event)\">\n// \t\t\t</ibm-date-picker>\n// \t\t\t<code>{{formGroup.controls[\"single\"].value | json}}</code>\n// \t\t\t<br><br>\n// \t\t\t<ibm-date-picker\n// \t\t\t\trange=\"true\"\n// \t\t\t\tformControlName=\"range\"\n// \t\t\t\tlabel=\"Date Picker Label\"\n// \t\t\t\trangeLabel=\"Date Picker Label\"\n// \t\t\t\tinvalidText=\"Invalid date format\"\n// \t\t\t\t[pattern]=\"pattern\"\n// \t\t\t\t[invalid]=\"invalidRange\"\n// \t\t\t\t(valueChange)=\"valueChange.emit($event)\">\n// \t\t\t</ibm-date-picker>\n// \t\t\t<code>{{formGroup.controls[\"range\"].value | json}}</code>\n// \t\t</form>\n\n// \t\t<button (click)=\"disableAll()\">Disable all</button>\n// \t`\n// })\n// class DatePickerStory {\n// \t@Output() valueChange = new EventEmitter();\n\n// \tget invalidSingle() {\n// \t\treturn this.formGroup.controls[\"single\"].invalid && this.formGroup.controls[\"single\"].touched;\n// \t}\n\n// \tget invalidRange() {\n// \t\treturn this.formGroup.controls[\"range\"].invalid && this.formGroup.controls[\"range\"].touched;\n// \t}\n\n// \tformGroup: FormGroup;\n\n// \tconstructor(protected formBuilder: FormBuilder) {\n// \t\tthis.formGroup = this.formBuilder.group({\n// \t\t\tsingle: [\n// \t\t\t\t[new Date()],\n// \t\t\t\tValidators.required\n// \t\t\t],\n// \t\t\trange: [\n// \t\t\t\t[\n// \t\t\t\t\tnew Date(),\n// \t\t\t\t\tnew Date(\n// \t\t\t\t\t\tnew Date().getFullYear(),\n// \t\t\t\t\t\tnew Date().getMonth() + 1,\n// \t\t\t\t\t\tnew Date().getDate())\n// \t\t\t\t],\n// \t\t\t\tValidators.required\n// \t\t\t]\n// \t\t});\n// \t}\n\n// \tdisableAll() {\n// \t\tconst single = this.formGroup.get(\"single\");\n// \t\tconst range = this.formGroup.get(\"range\");\n\n// \t\tsingle.disabled ? single.enable() : single.disable();\n// \t\trange.disabled ? range.enable() : range.disable();\n// \t}\n// }\n\n// @Component({\n// \tselector: \"app-date-picker-modal\",\n// \ttemplate: `\n//         <ibm-modal [open]=\"true\">\n//             <ibm-modal-header>Header label</ibm-modal-header>\n//             <section class=\"bx--modal-content\">\n//                 <h1>Sample modal works.</h1>\n//                 <p class=\"bx--modal-content__text\">{{modalText}}</p>\n//                 <ibm-date-picker\n//                     label=\"Date Picker Label\"\n//                     rangeLabel=\"Date Picker Label\"\n//                     invalidText=\"Invalid date format\">\n//                 </ibm-date-picker>\n//                 <p class=\"bx--modal-content__text\">{{modalText}}</p>\n//             </section>\n//         </ibm-modal>\n//     `\n// })\n// class DatePickerModalStory {\n// \t@Input() modalText: string;\n// }\n\n// storiesOf(\"Components|Date Picker\", module)\n// \t.addDecorator(\n// \t\tmoduleMetadata({\n// \t\t\timports: [\n// \t\t\t\tDatePickerModule,\n// \t\t\t\tFormsModule,\n// \t\t\t\tReactiveFormsModule,\n// \t\t\t\tDocumentationModule,\n// \t\t\t\tButtonModule,\n// \t\t\t\tTabsModule,\n// \t\t\t\tModalModule\n// \t\t\t],\n// \t\t\tdeclarations: [\n// \t\t\t\tDatePickerStory,\n// \t\t\t\tDatePickerModalStory\n// \t\t\t]\n// \t\t})\n// \t)\n// \t.addDecorator(withKnobs)\n// \t.add(\"Simple\", () => ({\n// \t\ttemplate: `\n// \t\t<ibm-date-picker-input\n// \t\t\t[theme]=\"theme\"\n// \t\t\t[label]=\"label\"\n// \t\t\t[placeholder]=\"placeholder\"\n// \t\t\t[disabled]=\"disabled\"\n// \t\t\t[size]=\"size\"\n// \t\t\t[invalid]=\"invalid\"\n// \t\t\t[invalidText]=\"invalidText\"\n// \t\t\t[warn]=\"warn\"\n// \t\t\t[warnText]=\"warnText\"\n// \t\t\t(valueChange)=\"valueChange($event)\">\n// \t\t</ibm-date-picker-input>\n// \t\t`,\n// \t\tprops: {\n// \t\t\ttheme: select(\"Theme\", [\"dark\", \"light\"], \"dark\"),\n// \t\t\tlabel: text(\"Label text\", \"Date Picker Label\"),\n// \t\t\tplaceholder: text(\"Placeholder text\", \"mm/dd/yyyy\"),\n// \t\t\tinvalidText: text(\"Form validation content\", \"Invalid date format\"),\n// \t\t\tinvalid: boolean(\"Show form validation\", false),\n// \t\t\twarn: boolean(\"Show the warning state\", false),\n// \t\t\twarnText: text(\"Text for the warning\", \"This is a warning\"),\n// \t\t\tsize: select(\"Size\", [\"sm\", \"md\", \"xl\"], \"md\"),\n// \t\t\tdisabled: boolean(\"Disabled\", false),\n// \t\t\tvalueChange: action(\"Date change fired!\")\n// \t\t}\n// \t}))\n// \t.add(\"Single\", () => ({\n// \t\ttemplate: `\n// \t\t\t<p>With initial value</p>\n// \t\t\t<ibm-date-picker\n// \t\t\t\t[label]=\"label\"\n// \t\t\t\tid=\"initial-value-datepicker\"\n// \t\t\t\t[placeholder]=\"placeholder\"\n// \t\t\t\t[language]=\"language\"\n// \t\t\t\t[size]=\"size\"\n// \t\t\t\t[theme]=\"theme\"\n// \t\t\t\t[value]=\"value\"\n// \t\t\t\t[disabled]=\"disabled\"\n// \t\t\t\t[invalid]=\"invalid\"\n// \t\t\t\t[invalidText]=\"invalidText\"\n// \t\t\t\t[warn]=\"warn\"\n// \t\t\t\t[warnText]=\"warnText\"\n// \t\t\t\t[dateFormat]=\"dateFormat\"\n// \t\t\t\t(valueChange)=\"valueChange($event)\"\n// \t\t\t\t[helperText]=\"helperText\">\n// \t\t\t</ibm-date-picker>\n// \t\t\t<p style=\"margin-top: 20px;\">Without initial value</p>\n// \t\t\t<ibm-date-picker\n// \t\t\t\t[label]=\"label\"\n// \t\t\t\t[placeholder]=\"placeholder\"\n// \t\t\t\t[language]=\"language\"\n// \t\t\t\t[size]=\"size\"\n// \t\t\t\t[theme]=\"theme\"\n// \t\t\t\t[disabled]=\"disabled\"\n// \t\t\t\t[invalid]=\"invalid\"\n// \t\t\t\t[invalidText]=\"invalidText\"\n// \t\t\t\t[warn]=\"warn\"\n// \t\t\t\t[warnText]=\"warnText\"\n// \t\t\t\t[dateFormat]=\"dateFormat\"\n// \t\t\t\t(valueChange)=\"valueChange($event)\"\n// \t\t\t\t[helperText]=\"helperText\">\n// \t\t\t</ibm-date-picker>\n// \t\t`,\n// \t\tprops: {\n// \t\t\tlanguage: select(\"Calendar language\", [\"en\", \"de\", \"fi\", \"ja\", \"zh\", \"es\", \"fr\", \"it\", \"ko\", \"pt\"], \"en\"),\n// \t\t\tsize: select(\"Size\", [\"sm\", \"md\", \"xl\"], \"md\"),\n// \t\t\tvalueChange: action(\"Date change fired!\"),\n// \t\t\ttheme: select(\"Theme\", [\"dark\", \"light\"], \"dark\"),\n// \t\t\tlabel: text(\"Label text\", \"Date Picker Label\"),\n// \t\t\tplaceholder: text(\"Placeholder text\", \"mm/dd/yyyy\"),\n// \t\t\tinvalidText: text(\"Form validation content\", \"Invalid date format\"),\n// \t\t\twarn: boolean(\"Show the warning state\", false),\n// \t\t\twarnText: text(\"Text for the warning\", \"This is a warning\"),\n// \t\t\thelperText: text(\"Helper text\", \"\"),\n// \t\t\tinvalid: boolean(\"Show form validation\", false),\n// \t\t\tdisabled: boolean(\"Disabled\", false),\n// \t\t\tdateFormat: text(\"Date format\", \"m/d/Y\"),\n// \t\t\tvalue: array(\"Value\", [\"10/19/2019\"])\n// \t\t}\n// \t}))\n// \t.add(\"Range\", () => ({\n// \t\ttemplate: `\n// \t\t<p>With initial value</p>\n// \t\t<ibm-date-picker\n// \t\t\t[label]=\"label\"\n// \t\t\t[rangeLabel]=\"label\"\n// \t\t\t[size]=\"size\"\n// \t\t\trange=\"true\"\n// \t\t\tid=\"initial-value-datepicker\"\n// \t\t\t[placeholder]=\"placeholder\"\n// \t\t\t[language]=\"language\"\n// \t\t\t[theme]=\"theme\"\n// \t\t\t[disabled]=\"disabled\"\n// \t\t\t[invalid]=\"invalid\"\n// \t\t\t[invalidText]=\"invalidText\"\n// \t\t\t[warn]=\"warn\"\n// \t\t\t[warnText]=\"warnText\"\n// \t\t\t[rangeInvalid]=\"invalid\"\n// \t\t\t[rangeInvalidText]=\"invalidText\"\n// \t\t\t[dateFormat]=\"dateFormat\"\n// \t\t\t[value]=\"value\"\n// \t\t\t(valueChange)=\"valueChange($event)\"\n// \t\t\t[helperText]=\"helperText\">\n// \t\t</ibm-date-picker>\n// \t\t<p style=\"margin-top: 20px;\">Without initial value</p>\n// \t\t<ibm-date-picker\n// \t\t\t[label]=\"label\"\n// \t\t\t[rangeLabel]=\"label\"\n// \t\t\t[size]=\"size\"\n// \t\t\trange=\"true\"\n// \t\t\t[language]=\"language\"\n// \t\t\t[placeholder]=\"placeholder\"\n// \t\t\t[theme]=\"theme\"\n// \t\t\t[disabled]=\"disabled\"\n// \t\t\t[invalid]=\"invalid\"\n// \t\t\t[invalidText]=\"invalidText\"\n// \t\t\t[warn]=\"warn\"\n// \t\t\t[warnText]=\"warnText\"\n// \t\t\t[rangeWarn]=\"warn\"\n// \t\t\t[rangeWarnText]=\"warnText\"\n// \t\t\t[dateFormat]=\"dateFormat\"\n// \t\t\t(valueChange)=\"valueChange($event)\"\n// \t\t\t[helperText]=\"helperText\">\n// \t\t</ibm-date-picker>\n// \t\t`,\n// \t\tprops: {\n// \t\t\tlanguage: select(\"Calendar language\", [\"en\", \"de\", \"fi\", \"ja\", \"zh\", \"es\", \"fr\", \"it\", \"ko\", \"pt\"], \"en\"),\n// \t\t\tsize: select(\"Size\", [\"sm\", \"md\", \"xl\"], \"md\"),\n// \t\t\tvalueChange: action(\"Date change fired!\"),\n// \t\t\ttheme: select(\"Theme\", [\"dark\", \"light\"], \"dark\"),\n// \t\t\tlabel: text(\"Label text\", \"Date Picker Label\"),\n// \t\t\tplaceholder: text(\"Placeholder text\", \"mm/dd/yyyy\"),\n// \t\t\tinvalidText: text(\"Form validation content\", \"Invalid date format\"),\n// \t\t\twarn: boolean(\"Show the warning state\", false),\n// \t\t\twarnText: text(\"Text for the warning\", \"This is a warning\"),\n// \t\t\thelperText: text(\"Helper text\", \"\"),\n// \t\t\tinvalid: boolean(\"Show form validation\", false),\n// \t\t\tdisabled: boolean(\"Disabled\", false),\n// \t\t\tdateFormat: text(\"Date format\", \"m/d/Y\"),\n// \t\t\tvalue: array(\"Value\", [\"09/19/2019\", \"10/19/2019\"])\n// \t\t}\n// \t}))\n// \t.add(\"With reactive forms\", () => ({\n// \t\ttemplate: `\n// \t\t<!--\n// \t\t\tapp-* components are for demo purposes only.\n// \t\t\tYou can create your own implementation by using the component source as an example.\n// \t\t-->\n// \t\t<app-date-picker\n// \t\t\t(valueChange)=\"valueChange($event)\">\n// \t\t</app-date-picker>\n// \t\t`,\n// \t\tprops: {\n// \t\t\tvalueChange: action(\"Date change fired!\")\n// \t\t}\n// \t}))\n// \t.add(\"With ngModel\", () => ({\n// \t\ttemplate: `\n// \t\t\t<div>\n// \t\t\t\t<ibm-date-picker\n// \t\t\t\t\tlabel=\"Date picker label\"\n// \t\t\t\t\t[size]=\"size\"\n// \t\t\t\t\t[(ngModel)]=\"single\">\n// \t\t\t\t</ibm-date-picker>\n// \t\t\t\t<button\n// \t\t\t\t\tibmButton\n// \t\t\t\t\t(click)=\"single = null\"\n// \t\t\t\t\tstyle=\"margin-top: 5px\">\n// \t\t\t\t\tSend null\n// \t\t\t\t</button>\n// \t\t\t\t<button\n// \t\t\t\t\tibmButton\n// \t\t\t\t\t(click)=\"single = [date]\"\n// \t\t\t\t\tstyle=\"margin-left: 5px\">\n// \t\t\t\t\tSend date\n// \t\t\t\t</button>\n// \t\t\t\t<br>\n// \t\t\t\t<code>{{ single | json }}</code>\n// \t\t\t</div>\n// \t\t\t<div style=\"margin-top: 15px;\">\n// \t\t\t\t<ibm-date-picker\n// \t\t\t\t\t[size]=\"size\"\n// \t\t\t\t\tlabel=\"Date picker\"\n// \t\t\t\t\trangeLabel=\"Range label\"\n// \t\t\t\t\trange=\"true\"\n// \t\t\t\t\t[(ngModel)]=\"range\">\n// \t\t\t\t</ibm-date-picker>\n// \t\t\t\t<button\n// \t\t\t\t\tibmButton\n// \t\t\t\t\t(click)=\"range = null\"\n// \t\t\t\t\tstyle=\"margin-top: 5px\">\n// \t\t\t\t\tSend null\n// \t\t\t\t</button>\n// \t\t\t\t<button\n// \t\t\t\t\tibmButton\n// \t\t\t\t\t(click)=\"range = rangeDates\"\n// \t\t\t\t\tstyle=\"margin-left: 5px\">\n// \t\t\t\t\tSend date\n// \t\t\t\t</button>\n// \t\t\t\t<br>\n// \t\t\t\t<code>{{ range | json }}</code>\n// \t\t\t</div>\n// \t\t`,\n// \t\tprops: {\n// \t\t\tdate: new Date(new Date().getFullYear(), 5, 15),\n// \t\t\tsize: select(\"Size\", [\"sm\", \"md\", \"xl\"], \"md\"),\n// \t\t\trangeDates: [\n// \t\t\t\tnew Date(new Date().getFullYear(), 5, 15),\n// \t\t\t\tnew Date(new Date().getFullYear(), 8, 19)\n// \t\t\t]\n// \t\t}\n// \t}))\n// \t.add(\"In tabs\", () => ({\n// \t\ttemplate: `\n// \t\t\t<ibm-tabs>\n// \t\t\t\t<ibm-tab heading=\"one\">\n// \t\t\t\t\tTab Content 1\n// \t\t\t\t\t<p>With initial value</p>\n// \t\t\t\t\t<ibm-date-picker\n// \t\t\t\t\t\t[label]=\"label\"\n// \t\t\t\t\t\t[size]=\"size\"\n// \t\t\t\t\t\t[placeholder]=\"placeholder\"\n// \t\t\t\t\t\t[theme]=\"theme\"\n// \t\t\t\t\t\t[value]=\"value\"\n// \t\t\t\t\t\t[disabled]=\"disabled\"\n// \t\t\t\t\t\t[invalid]=\"invalid\"\n// \t\t\t\t\t\t[invalidText]=\"invalidText\"\n// \t\t\t\t\t\t[dateFormat]=\"dateFormat\"\n// \t\t\t\t\t\t(valueChange)=\"valueChange($event)\">\n// \t\t\t\t\t</ibm-date-picker>\n// \t\t\t\t\t<p style=\"margin-top: 20px;\">Without initial value</p>\n// \t\t\t\t\t<ibm-date-picker\n// \t\t\t\t\t\t[label]=\"label\"\n// \t\t\t\t\t\t[size]=\"size\"\n// \t\t\t\t\t\t[placeholder]=\"placeholder\"\n// \t\t\t\t\t\t[theme]=\"theme\"\n// \t\t\t\t\t\t[disabled]=\"disabled\"\n// \t\t\t\t\t\t[invalid]=\"invalid\"\n// \t\t\t\t\t\t[invalidText]=\"invalidText\"\n// \t\t\t\t\t\t[dateFormat]=\"dateFormat\"\n// \t\t\t\t\t\t(valueChange)=\"valueChange($event)\">\n// \t\t\t\t\t</ibm-date-picker>\n// \t\t\t\t</ibm-tab>\n// \t\t\t\t<ibm-tab heading=\"two\">\n// \t\t\t\t\t<p>With initial value</p>\n// \t\t\t\t\t<ibm-date-picker\n// \t\t\t\t\t\t[label]=\"label\"\n// \t\t\t\t\t\t[placeholder]=\"placeholder\"\n// \t\t\t\t\t\t[size]=\"size\"\n// \t\t\t\t\t\t[theme]=\"theme\"\n// \t\t\t\t\t\t[value]=\"value\"\n// \t\t\t\t\t\t[disabled]=\"disabled\"\n// \t\t\t\t\t\t[invalid]=\"invalid\"\n// \t\t\t\t\t\t[invalidText]=\"invalidText\"\n// \t\t\t\t\t\t[dateFormat]=\"dateFormat\"\n// \t\t\t\t\t\t(valueChange)=\"valueChange($event)\">\n// \t\t\t\t\t</ibm-date-picker>\n// \t\t\t\t\t<p style=\"margin-top: 20px;\">Without initial value</p>\n// \t\t\t\t\t<ibm-date-picker\n// \t\t\t\t\t\t[label]=\"label\"\n// \t\t\t\t\t\t[placeholder]=\"placeholder\"\n// \t\t\t\t\t\t[size]=\"size\"\n// \t\t\t\t\t\t[theme]=\"theme\"\n// \t\t\t\t\t\t[disabled]=\"disabled\"\n// \t\t\t\t\t\t[invalid]=\"invalid\"\n// \t\t\t\t\t\t[invalidText]=\"invalidText\"\n// \t\t\t\t\t\t[dateFormat]=\"dateFormat\"\n// \t\t\t\t\t\t(valueChange)=\"valueChange($event)\">\n// \t\t\t\t\t</ibm-date-picker>\n// \t\t\t\t</ibm-tab>\n// \t\t\t\t<ibm-tab heading=\"three\">Tab Content 3</ibm-tab>\n// \t\t\t</ibm-tabs>\n// \t\t`,\n// \t\tprops: {\n// \t\t\tvalueChange: action(\"Date change fired!\"),\n// \t\t\tsize: select(\"Size\", [\"sm\", \"md\", \"xl\"], \"md\"),\n// \t\t\ttheme: select(\"Theme\", [\"dark\", \"light\"], \"dark\"),\n// \t\t\tlabel: text(\"Label text\", \"Date Picker Label\"),\n// \t\t\tplaceholder: text(\"Placeholder text\", \"mm/dd/yyyy\"),\n// \t\t\tinvalidText: text(\"Form validation content\", \"Invalid date format\"),\n// \t\t\tinvalid: boolean(\"Show form validation\", false),\n// \t\t\tdisabled: boolean(\"Disabled\", false),\n// \t\t\tdateFormat: text(\"Date format\", \"m/d/Y\"),\n// \t\t\tvalue: array(\"Value\", [\"10/19/2019\"])\n// \t\t}\n// \t}))\n// \t.add(\"In modal\", () => ({\n// \t\ttemplate: `\n// \t\t\t<!--\n// \t\t\t\tapp-* components are for demo purposes only.\n// \t\t\t\tYou can create your own implementation by using the component source as an example.\n// \t\t\t-->\n// \t\t\t<app-date-picker-modal [modalText]=\"modalText\"></app-date-picker-modal>\n// \t\t`,\n// \t\tprops: {\n// \t\t\tmodalText: text(\"modal text\", modalText)\n// \t\t}\n// \t}))\n// \t.add(\"Skeleton\", () => ({\n// \t\ttemplate: `\n// \t\t<ibm-date-picker\n// \t\t\trange=\"true\"\n// \t\t\tskeleton=\"true\">\n// \t\t</ibm-date-picker>\n// \t\t`\n// \t}))\n// \t.add(\"Documentation\", () => ({\n// \t\ttemplate: `\n// \t\t\t<ibm-documentation src=\"documentation/classes/src_datepicker.datepicker.html\"></ibm-documentation>\n// \t\t`\n// \t}));\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -381,7 +380,7 @@
                         "deprecationMessage": ""
                     }
                 ],
-                "line": 25,
+                "line": 15,
                 "jsdoctags": [
                     {
                         "name": "fb",
@@ -401,7 +400,7 @@
                         "name": "aliases",
                         "type": "",
                         "returnType": "",
-                        "line": 23
+                        "line": 13
                     }
                 }
             },
@@ -699,7 +698,7 @@
                 }
             ],
             "stylesData": "",
-            "templateData": "<app-form></app-form>\n<app-submit-button></app-submit-button>\n"
+            "templateData": "<app-form [showLog]=\"true\"></app-form>\n<app-submit-button></app-submit-button>\n"
         },
         {
             "name": "SubmitButtonComponent",
@@ -880,24 +879,14 @@
                 "defaultValue": "{\r\n  args: {\r\n    primary: false,\r\n  },\r\n}"
             },
             {
-                "name": "Disable",
+                "name": "EmptyForm",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/page-form/page-form.stories.ts",
+                "file": "src/app/form/form.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\r\n  args: {\r\n    showLog: false,\r\n  },\r\n}"
-            },
-            {
-                "name": "Enable",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/app/dropdown/dropdown.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story",
-                "defaultValue": "{\r\n  args: {},\r\n}"
+                "defaultValue": "{}"
             },
             {
                 "name": "Enable",
@@ -923,11 +912,11 @@
                 "name": "Enable",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/page-form/page-form.stories.ts",
+                "file": "src/app/dropdown/dropdown.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\r\n  args: {\r\n    showLog: true,\r\n  },\r\n}"
+                "defaultValue": "{\r\n  args: {},\r\n}"
             },
             {
                 "name": "Large",
@@ -1023,21 +1012,11 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/dropdown/dropdown.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Meta<DropdownComponent>",
-                "defaultValue": "{\r\n  title: 'Example/Dropdown',\r\n  component: DropdownComponent,\r\n  tags: ['autodocs'],\r\n}"
-            },
-            {
-                "name": "meta",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "src/app/form/form.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<FormComponent>",
-                "defaultValue": "{\r\n  title: 'Example/Form',\r\n  component: FormComponent,\r\n  tags: ['autodocs'],\r\n}"
+                "defaultValue": "{\r\n  title: 'Example/Form',\r\n  component: FormComponent,\r\n  tags: ['autodocs'],\r\n  decorators: [\r\n    moduleMetadata({\r\n      imports: [ReactiveFormsModule],\r\n    }),\r\n  ],\r\n  render: (args: FormComponent) => ({\r\n    props: {\r\n      ...args,\r\n    },\r\n  }),\r\n}"
             },
             {
                 "name": "meta",
@@ -1053,11 +1032,11 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/page-form/page-form.stories.ts",
+                "file": "src/app/dropdown/dropdown.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "type": "Meta<PageFormComponent>",
-                "defaultValue": "{\r\n  title: 'Example/PageForm',\r\n  component: PageFormComponent,\r\n  tags: ['autodocs'],\r\n}"
+                "type": "Meta<DropdownComponent>",
+                "defaultValue": "{\r\n  title: 'Example/Dropdown',\r\n  component: DropdownComponent,\r\n  tags: ['autodocs'],\r\n}"
             },
             {
                 "name": "preview",
@@ -1107,17 +1086,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\r\n  play: async ({ args, canvasElement, step }) => {\r\n    const canvas = within(canvasElement);\r\n\r\n    await step('Enter user and address', async () => {\r\n      await userEvent.click(canvas.getByTestId('first-name'));\r\n      await userEvent.type(canvas.getByTestId('first-name'), 'John');\r\n      await userEvent.type(canvas.getByTestId('last-name'), 'Wick');\r\n      await userEvent.type(canvas.getByTestId('street'), '121 Mill Neck');\r\n      await userEvent.type(canvas.getByTestId('city'), 'Long Island');\r\n      await userEvent.type(canvas.getByTestId('state'), 'NY');\r\n      await userEvent.type(canvas.getByTestId('zip'), '11765');\r\n    });\r\n\r\n    await step('Enter two alias', async () => {\r\n      await userEvent.type(canvas.getByTestId('alias'), 'Baba Yaga');\r\n      await userEvent.click(canvas.getByTestId('add-alias'));\r\n\r\n      const [, alias2] = canvas.getAllByTestId('alias');\r\n\r\n      await userEvent.type(alias2, 'Jonathan');\r\n    });\r\n\r\n    await step('Submit form', async () => {\r\n      await userEvent.click(canvas.getByTestId('submit'));\r\n    });\r\n\r\n    // await step('Auto populate and submit', async () => {\r\n    //   await userEvent.click(canvas.getByTestId('auto-populate'));\r\n    //  // await userEvent.click(canvas.getByTestId('submit'));\r\n    // });\r\n  },\r\n  args: {\r\n    showLog: true,\r\n  },\r\n}"
-            },
-            {
-                "name": "Submitted",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/app/page-form/page-form.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story",
-                "defaultValue": "{\r\n  play: async ({ args, canvasElement, step }) => {\r\n    const canvas = within(canvasElement);\r\n\r\n    await step('Enter user and address', async () => {\r\n      await userEvent.click(canvas.getByTestId('first-name'));\r\n      await userEvent.type(canvas.getByTestId('first-name'), 'John');\r\n      await userEvent.type(canvas.getByTestId('last-name'), 'Wick');\r\n      await userEvent.type(canvas.getByTestId('street'), '121 Mill Neck');\r\n      await userEvent.type(canvas.getByTestId('city'), 'Long Island');\r\n      await userEvent.type(canvas.getByTestId('state'), 'NY');\r\n      await userEvent.type(canvas.getByTestId('zip'), '11765');\r\n    });\r\n\r\n    await step('Enter two alias', async () => {\r\n      await userEvent.type(canvas.getByTestId('alias'), 'Baba Yaga');\r\n      await userEvent.click(canvas.getByTestId('add-alias'));\r\n\r\n      const [, alias2] = canvas.getAllByTestId('alias');\r\n\r\n      await userEvent.type(alias2, 'Jonathan');\r\n    });\r\n\r\n    await step('Submit form', async () => {\r\n      await userEvent.click(canvas.getByTestId('submit'));\r\n    });\r\n\r\n    // await step('Auto populate and submit', async () => {\r\n    //   await userEvent.click(canvas.getByTestId('auto-populate'));\r\n    //  // await userEvent.click(canvas.getByTestId('submit'));\r\n    // });\r\n  },\r\n  args: {\r\n    showLog: true,\r\n  },\r\n}"
+                "defaultValue": "{\r\n  play: async ({ args, canvasElement, step }) => {\r\n    const canvas = within(canvasElement);\r\n    const submitButton = canvas.getByTestId('submit') as any;\r\n\r\n    await step('Enter user and address information', async () => {\r\n      await expect(submitButton).toHaveProperty('disabled');\r\n\r\n      await userEvent.click(canvas.getByTestId('first-name'));\r\n      await userEvent.type(canvas.getByTestId('first-name'), 'John');\r\n\r\n      await userEvent.type(canvas.getByTestId('last-name'), 'Wick');\r\n      await userEvent.type(canvas.getByTestId('street'), '121 Mill Neck');\r\n      await userEvent.type(canvas.getByTestId('city'), 'Long Island');\r\n      await userEvent.type(canvas.getByTestId('state'), 'NY');\r\n      await userEvent.type(canvas.getByTestId('zip'), '11765');\r\n\r\n      await expect(submitButton).toHaveProperty('disabled');\r\n      await expect(submitButton).toHaveProperty('type', 'submit');\r\n      // await expect(submitButton).toHaveStyle(\r\n      //   'background-color: rgb(240, 240, 240)'\r\n      // );\r\n    });\r\n\r\n    await step('Enter two alias', async () => {\r\n      await userEvent.type(canvas.getByTestId('alias'), 'Baba Yaga');\r\n      await userEvent.click(canvas.getByTestId('add-alias'));\r\n\r\n      const [, alias2] = canvas.getAllByTestId('alias');\r\n\r\n      await userEvent.type(alias2, 'Jonathan');\r\n    });\r\n\r\n    await step('Submit form', async () => {\r\n      await userEvent.click(submitButton);\r\n    });\r\n\r\n    await step('Auto populate and submit', async () => {\r\n      await userEvent.click(canvas.getByTestId('auto-populate'));\r\n      await userEvent.click(submitButton);\r\n    });\r\n  },\r\n  args: {\r\n    showLog: true,\r\n  },\r\n}"
             }
         ],
         "functions": [],
@@ -1170,17 +1139,6 @@
                 "name": "Story",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
-                "rawtype": "StoryObj<DropdownComponent>",
-                "file": "src/app/dropdown/dropdown.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "description": "",
-                "kind": 177
-            },
-            {
-                "name": "Story",
-                "ctype": "miscellaneous",
-                "subtype": "typealias",
                 "rawtype": "StoryObj<FormComponent>",
                 "file": "src/app/form/form.stories.ts",
                 "deprecated": false,
@@ -1203,8 +1161,8 @@
                 "name": "Story",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
-                "rawtype": "StoryObj<PageFormComponent>",
-                "file": "src/app/page-form/page-form.stories.ts",
+                "rawtype": "StoryObj<DropdownComponent>",
+                "file": "src/app/dropdown/dropdown.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -1225,6 +1183,16 @@
                     "defaultValue": "{\r\n  args: {\r\n    showLog: false,\r\n  },\r\n}"
                 },
                 {
+                    "name": "EmptyForm",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/form/form.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{}"
+                },
+                {
                     "name": "Enable",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
@@ -1242,7 +1210,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<FormComponent>",
-                    "defaultValue": "{\r\n  title: 'Example/Form',\r\n  component: FormComponent,\r\n  tags: ['autodocs'],\r\n}"
+                    "defaultValue": "{\r\n  title: 'Example/Form',\r\n  component: FormComponent,\r\n  tags: ['autodocs'],\r\n  decorators: [\r\n    moduleMetadata({\r\n      imports: [ReactiveFormsModule],\r\n    }),\r\n  ],\r\n  render: (args: FormComponent) => ({\r\n    props: {\r\n      ...args,\r\n    },\r\n  }),\r\n}"
                 },
                 {
                     "name": "Submitted",
@@ -1252,7 +1220,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\r\n  play: async ({ args, canvasElement, step }) => {\r\n    const canvas = within(canvasElement);\r\n\r\n    await step('Enter user and address', async () => {\r\n      await userEvent.click(canvas.getByTestId('first-name'));\r\n      await userEvent.type(canvas.getByTestId('first-name'), 'John');\r\n      await userEvent.type(canvas.getByTestId('last-name'), 'Wick');\r\n      await userEvent.type(canvas.getByTestId('street'), '121 Mill Neck');\r\n      await userEvent.type(canvas.getByTestId('city'), 'Long Island');\r\n      await userEvent.type(canvas.getByTestId('state'), 'NY');\r\n      await userEvent.type(canvas.getByTestId('zip'), '11765');\r\n    });\r\n\r\n    await step('Enter two alias', async () => {\r\n      await userEvent.type(canvas.getByTestId('alias'), 'Baba Yaga');\r\n      await userEvent.click(canvas.getByTestId('add-alias'));\r\n\r\n      const [, alias2] = canvas.getAllByTestId('alias');\r\n\r\n      await userEvent.type(alias2, 'Jonathan');\r\n    });\r\n\r\n    await step('Submit form', async () => {\r\n      await userEvent.click(canvas.getByTestId('submit'));\r\n    });\r\n\r\n    // await step('Auto populate and submit', async () => {\r\n    //   await userEvent.click(canvas.getByTestId('auto-populate'));\r\n    //  // await userEvent.click(canvas.getByTestId('submit'));\r\n    // });\r\n  },\r\n  args: {\r\n    showLog: true,\r\n  },\r\n}"
+                    "defaultValue": "{\r\n  play: async ({ args, canvasElement, step }) => {\r\n    const canvas = within(canvasElement);\r\n    const submitButton = canvas.getByTestId('submit') as any;\r\n\r\n    await step('Enter user and address information', async () => {\r\n      await expect(submitButton).toHaveProperty('disabled');\r\n\r\n      await userEvent.click(canvas.getByTestId('first-name'));\r\n      await userEvent.type(canvas.getByTestId('first-name'), 'John');\r\n\r\n      await userEvent.type(canvas.getByTestId('last-name'), 'Wick');\r\n      await userEvent.type(canvas.getByTestId('street'), '121 Mill Neck');\r\n      await userEvent.type(canvas.getByTestId('city'), 'Long Island');\r\n      await userEvent.type(canvas.getByTestId('state'), 'NY');\r\n      await userEvent.type(canvas.getByTestId('zip'), '11765');\r\n\r\n      await expect(submitButton).toHaveProperty('disabled');\r\n      await expect(submitButton).toHaveProperty('type', 'submit');\r\n      // await expect(submitButton).toHaveStyle(\r\n      //   'background-color: rgb(240, 240, 240)'\r\n      // );\r\n    });\r\n\r\n    await step('Enter two alias', async () => {\r\n      await userEvent.type(canvas.getByTestId('alias'), 'Baba Yaga');\r\n      await userEvent.click(canvas.getByTestId('add-alias'));\r\n\r\n      const [, alias2] = canvas.getAllByTestId('alias');\r\n\r\n      await userEvent.type(alias2, 'Jonathan');\r\n    });\r\n\r\n    await step('Submit form', async () => {\r\n      await userEvent.click(submitButton);\r\n    });\r\n\r\n    await step('Auto populate and submit', async () => {\r\n      await userEvent.click(canvas.getByTestId('auto-populate'));\r\n      await userEvent.click(submitButton);\r\n    });\r\n  },\r\n  args: {\r\n    showLog: true,\r\n  },\r\n}"
                 }
             ],
             "src/app/notice/notice.stories.ts": [
@@ -1285,48 +1253,6 @@
                     "deprecationMessage": "",
                     "type": "Meta<NoticeComponent>",
                     "defaultValue": "{\r\n  title: 'Example/Notice',\r\n  component: NoticeComponent,\r\n  tags: ['autodocs'],\r\n  render: (args: NoticeComponent) => ({\r\n    props: {\r\n      backgroundColor: null,\r\n      ...args,\r\n    },\r\n  }),\r\n  argTypes: {\r\n    backgroundColor: {\r\n      control: 'color',\r\n    },\r\n  },\r\n}"
-                }
-            ],
-            "src/app/page-form/page-form.stories.ts": [
-                {
-                    "name": "Disable",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/page-form/page-form.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{\r\n  args: {\r\n    showLog: false,\r\n  },\r\n}"
-                },
-                {
-                    "name": "Enable",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/page-form/page-form.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{\r\n  args: {\r\n    showLog: true,\r\n  },\r\n}"
-                },
-                {
-                    "name": "meta",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/page-form/page-form.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Meta<PageFormComponent>",
-                    "defaultValue": "{\r\n  title: 'Example/PageForm',\r\n  component: PageFormComponent,\r\n  tags: ['autodocs'],\r\n}"
-                },
-                {
-                    "name": "Submitted",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/page-form/page-form.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{\r\n  play: async ({ args, canvasElement, step }) => {\r\n    const canvas = within(canvasElement);\r\n\r\n    await step('Enter user and address', async () => {\r\n      await userEvent.click(canvas.getByTestId('first-name'));\r\n      await userEvent.type(canvas.getByTestId('first-name'), 'John');\r\n      await userEvent.type(canvas.getByTestId('last-name'), 'Wick');\r\n      await userEvent.type(canvas.getByTestId('street'), '121 Mill Neck');\r\n      await userEvent.type(canvas.getByTestId('city'), 'Long Island');\r\n      await userEvent.type(canvas.getByTestId('state'), 'NY');\r\n      await userEvent.type(canvas.getByTestId('zip'), '11765');\r\n    });\r\n\r\n    await step('Enter two alias', async () => {\r\n      await userEvent.type(canvas.getByTestId('alias'), 'Baba Yaga');\r\n      await userEvent.click(canvas.getByTestId('add-alias'));\r\n\r\n      const [, alias2] = canvas.getAllByTestId('alias');\r\n\r\n      await userEvent.type(alias2, 'Jonathan');\r\n    });\r\n\r\n    await step('Submit form', async () => {\r\n      await userEvent.click(canvas.getByTestId('submit'));\r\n    });\r\n\r\n    // await step('Auto populate and submit', async () => {\r\n    //   await userEvent.click(canvas.getByTestId('auto-populate'));\r\n    //  // await userEvent.click(canvas.getByTestId('submit'));\r\n    // });\r\n  },\r\n  args: {\r\n    showLog: true,\r\n  },\r\n}"
                 }
             ],
             "src/app/dropdown/dropdown.stories.ts": [
@@ -1547,19 +1473,6 @@
                     "kind": 177
                 }
             ],
-            "src/app/dropdown/dropdown.stories.ts": [
-                {
-                    "name": "Story",
-                    "ctype": "miscellaneous",
-                    "subtype": "typealias",
-                    "rawtype": "StoryObj<DropdownComponent>",
-                    "file": "src/app/dropdown/dropdown.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "description": "",
-                    "kind": 177
-                }
-            ],
             "src/app/form/form.stories.ts": [
                 {
                     "name": "Story",
@@ -1586,13 +1499,13 @@
                     "kind": 177
                 }
             ],
-            "src/app/page-form/page-form.stories.ts": [
+            "src/app/dropdown/dropdown.stories.ts": [
                 {
                     "name": "Story",
                     "ctype": "miscellaneous",
                     "subtype": "typealias",
-                    "rawtype": "StoryObj<PageFormComponent>",
-                    "file": "src/app/page-form/page-form.stories.ts",
+                    "rawtype": "StoryObj<DropdownComponent>",
+                    "file": "src/app/dropdown/dropdown.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
@@ -1700,6 +1613,16 @@
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
+                "name": "EmptyForm",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/form/form.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
                 "name": "Enable",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
@@ -1778,46 +1701,6 @@
                 "type": "component",
                 "linktype": "component",
                 "name": "PageFormComponent",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "src/app/page-form/page-form.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "Disable",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "src/app/page-form/page-form.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "Enable",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "src/app/page-form/page-form.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "meta",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "src/app/page-form/page-form.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "Submitted",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"

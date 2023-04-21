@@ -26,8 +26,12 @@ export const List: Story = {
     const [val1, val2, val3, val4] = options;
 
     await step('Select dropdown options', async () => {
-      const dropdown = canvas.getByTestId('dropdown');
-      const option1 = canvas.getByText(val1);
+      const dropdown = canvas.getByTestId('dropdown') as HTMLSelectElement;
+      const option1 = canvas.getByText(val1) as HTMLOptionElement;
+      const option3 = canvas.getByText(val3) as HTMLOptionElement;
+
+      await expect(option1.selected).toBe(true);
+      await expect(option3.selected).toBe(false);
 
       await userEvent.click(dropdown);
       await userEvent.selectOptions(dropdown, val2);
@@ -35,9 +39,10 @@ export const List: Story = {
       await userEvent.selectOptions(dropdown, val4);
       await userEvent.selectOptions(dropdown, val3);
 
-      await expect(dropdown.textContent).toBe(' Volvo  Mercedes  Audi  Saab ');
-      // expect(option1.select).toBe(true);
-     // expect(canvas.getByRole('option', { name: val1 })).toHaveValue('');
+      await expect(option1.selected).toBe(false);
+      await expect(option3.selected).toBe(true);
+      await expect(dropdown.selectedIndex).toBe(2);
+      await expect(dropdown.value).toBe('Audi');
     });
   },
 };

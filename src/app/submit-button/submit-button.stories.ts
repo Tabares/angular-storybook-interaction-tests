@@ -38,11 +38,14 @@ export const Sample: Story = {
     const canvas = within(canvasElement);
 
     await step('Click submit button', async () => {
-      const submitButton = canvas.getByTestId('standalone-submit-button');
+      const submitButton = canvas.getByTestId('standalone-submit-button') as HTMLButtonElement;
+
+      await expect(submitButton.disabled).toBe(false);
+      await expect(submitButton.textContent).toBe('Sample');
 
       await userEvent.click(submitButton);
 
-      await expect(submitButton).toHaveProperty('disabled');
+      await expect(submitButton.disabled).toBe(true);
     });
   },
 };

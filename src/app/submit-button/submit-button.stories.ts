@@ -22,9 +22,10 @@ export const Disabled: Story = {
     const canvas = within(canvasElement);
 
     await step('Click submit button', async () => {
-      const submitButton = canvas.getByTestId('standalone-submit-button');
+      const submitButton = canvas.getByTestId('standalone-submit-button') as HTMLButtonElement;
 
       await expect(submitButton).toHaveProperty('disabled');
+      await expect(submitButton.disabled).toBe(true);
     });
   },
 };
